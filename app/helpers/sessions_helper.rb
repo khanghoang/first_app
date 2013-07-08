@@ -38,4 +38,11 @@ module SessionsHelper
     session.delete(:return_to)
     session.delete(:previous_page)
   end
+
+  def signed_in_user
+    unless signed_in?
+      store_location
+      redirect_to signin_url, notice: "Please sign in."
+    end
+  end
 end
