@@ -4,6 +4,6 @@
   <% if current_user.admin? && !current_user?(user) %>
   	<%= link_to "x", user, method: :delete,
                                   data: { confirm: "Are you sure?" },
-                                  class: "btn btn-danger" %>
+                                  class: "btn btn-danger",style: "float:right" %>
   <% end %>
 </li>
