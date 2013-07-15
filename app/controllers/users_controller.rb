@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
     before_filter :signed_in_user, only: [:index,:edit, :update, :destroy, :following, :followers]
-    before_filter :correct_user, only: [:edit, :update]
     before_filter :admin_user,  only: :destroy
     before_filter :new_user, only: [:new,:create]
     
@@ -29,18 +28,18 @@ class UsersController < ApplicationController
     end
 
     def edit
-      @user = User.find(params[:id])
+      @user = current_user
     end
 
     def update
-      @user = User.find(params[:id])
+      @user = current_user
       if @user.update_attributes(params[:user])
         #successfull update
-        flash[:success] = "Profile updated"
         sign_in @user
+        flash[:success] = "Profile updated!"
         redirect_to @user
       else
-        render edit;
+        render 'edit';
       end
     end
 
@@ -69,11 +68,6 @@ class UsersController < ApplicationController
     end
 
     private      
-
-      def correct_user
-        @user = User.find(params[:id])
-        redirect_to(root_path) unless current_user?(@user)
-      end
 
       def admin_user
         redirect_to(root_path) unless current_user.admin?

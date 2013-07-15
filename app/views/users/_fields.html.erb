@@ -1,0 +1,13 @@
+<%= render 'shared/error_messages',object: f.object %>
+
+<%= f.label :name %>
+<%= f.text_field :name , required: true %>
+
+<%= f.label :email %>
+<%= f.email_field :email , required: true %>
+
+<%= f.label :password %>
+<%= f.password_field :password , required: true %>
+
+<%= f.label :password_confirmation, "Confirm Password" %>
+<%= f.password_field :password_confirmation , required: true %>
