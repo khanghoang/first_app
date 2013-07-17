@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  
+  # define constant
   ITEMS_PER_VIEW = 5
   protect_from_forgery  
   include SessionsHelper
