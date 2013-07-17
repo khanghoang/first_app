@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # define constant
-  ITEMS_PER_VIEW = 5
+  ITEMS_PER_VIEW = 7
   protect_from_forgery  
   include SessionsHelper
   # Force signout to prevent CSRF attacks
