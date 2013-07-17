@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-    ITEMS_PER_VIEW = 5
     before_filter :signed_in_user, except: :show
     before_filter :admin_user,  only: :destroy
     before_filter :new_user, only: [:new,:create] 
@@ -66,14 +65,14 @@ class UsersController < ApplicationController
     def following
       @title = "Following"
       @user = User.find(params[:id])
-      @users = @user.followed_users.paginate(page: params[:page], per_page: 10)
+      @users = @user.followed_users.paginate(page: params[:page], per_page: ITEMS_PER_VIEW)
       render 'show_follow'
     end
 
     def followers
       @title = "Followers"
       @user = User.find(params[:id])
-      @users = @user.followers.paginate(page: params[:page], per_page: 10)
+      @users = @user.followers.paginate(page: params[:page], per_page: ITEMS_PER_VIEW)
       render 'show_follow'
     end
 
