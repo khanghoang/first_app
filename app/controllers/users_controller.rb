@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 	  def show
     	@user = User.find_by_id(params[:id])
       if !@user.nil?
-        @microposts = @user.microposts.limit(ITEMS_PER_VIEW).offset(params[:page].to_i * ITEMS_PER_VIEW)
+        @microposts = handle_view_more_ajax(@user.microposts)
         respond_to do |format|
           format.html
           format.js
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
     def index
       # @users = User.paginate(page: params[:page],per_page: 10)
-      @users = User.limit(ITEMS_PER_VIEW).offset(params[:page].to_i * ITEMS_PER_VIEW)
+      @users = handle_view_more_ajax(User)
       respond_to do |format|
         format.html
         format.js

@@ -1,3 +1,9 @@
-var page = parseInt($("#page").val())
-$("#page").val(page + 1)
-$("#users").append("<%= escape_javascript(render @users) %>")
+var users_view = "<%= escape_javascript(render @users) %>"
+if(users_view != ""){
+	var page = parseInt($("#page").val())
+	$("#page").val(page + 1)
+	$("#users").append(users_view)
+}
+else{
+	$("#page").parent().hide()
+}

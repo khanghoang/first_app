@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
     super
   end
 
+  def handle_view_more_ajax(relations)
+  	relations.limit(ITEMS_PER_VIEW).offset(params[:page].to_i * ITEMS_PER_VIEW)
+  end
+
 end
