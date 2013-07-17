@@ -1,12 +1,17 @@
 class UsersController < ApplicationController
-    before_filter :signed_in_user, only: [:index,:edit, :update, :destroy, :following, :followers]
+    ITEMS_PER_VIEW = 5
+    before_filter :signed_in_user, except: :show
     before_filter :admin_user,  only: :destroy
-    before_filter :new_user, only: [:new,:create]
+    before_filter :new_user, only: [:new,:create] 
     
 	  def show
     	@user = User.find_by_id(params[:id])
       if !@user.nil?
-        @microposts = @user.microposts.paginate(page: params[:page],per_page: 10)
+        @microposts = @user.microposts.limit(ITEMS_PER_VIEW).offset(params[:page].to_i * ITEMS_PER_VIEW)
+        respond_to do |format|
+          format.html
+          format.js
+        end
       else
         redirect_to(root_path)
       end
@@ -44,7 +49,12 @@ class UsersController < ApplicationController
     end
 
     def index
-      @users = User.paginate(page: params[:page],per_page: 10)
+      # @users = User.paginate(page: params[:page],per_page: 10)
+      @users = User.limit(ITEMS_PER_VIEW).offset(params[:page].to_i * ITEMS_PER_VIEW)
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
 
     def destroy

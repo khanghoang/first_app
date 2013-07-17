@@ -17,11 +17,14 @@
  
   <div class="span8">
     <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
+      <h3>Microposts</h3>
+      <ol class="microposts" id="microposts">
         <%= render @microposts %>
       </ol>
-      <%= will_paginate @microposts %>
+      <%= form_tag(@user,remote: true, method: :get) do %>
+        <%= hidden_field_tag :page , 1%>
+        <%= submit_tag "View more", class: "btn btn-large btn-primary", style: "margin-top: 10px" %>
+      <% end %>      
     <% end %>
   </div>
 </div>

@@ -1,5 +1,5 @@
 FirstApp::Application.routes.draw do  
-  resources :users, only: [:show, :new, :create, :destroy, :index] do
+  resources :users, except: [:edit, :update] do
     member do
       get :following, :followers
     end
@@ -8,8 +8,8 @@ FirstApp::Application.routes.draw do
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
   root to: 'static_pages#home'
-  match '/settings', to: 'users#update', via: :put
-  match '/settings', to: 'users#edit'
+  get '/settings', to: 'users#edit', as: 'settings'
+  put '/settings', to: 'users#update'
   match '/signin',   to: 'sessions#new'
   match '/signout',  to: 'sessions#destroy',via: :delete
   match '/signup',   to: 'users#new'
