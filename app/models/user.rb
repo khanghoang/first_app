@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  USERS_PER_VIEW = 7
+  USERS_PER_VIEW = 10
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
   has_many :microposts,dependent: :destroy

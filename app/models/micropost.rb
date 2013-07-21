@@ -1,5 +1,5 @@
 class Micropost < ActiveRecord::Base
-  MICROPOSTS_PER_VIEW = 7
+  MICROPOSTS_PER_VIEW = 10
   attr_accessible :content
   belongs_to :user
   validates :user_id, presence: true
