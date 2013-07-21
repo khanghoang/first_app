@@ -21,10 +21,13 @@
   <div class="span8">
     <h3><%= @title %></h3>
     <% if @users.any? %>
-      <ul class="users">
+      <ul class="users" id="users">
         <%= render @users %>
       </ul>
-      <%= will_paginate %>
+      <%= form_tag("",remote: true, method: :get) do %>
+        <%= hidden_field_tag :page , 1%>
+        <%= submit_tag "View more", class: "btn btn-large btn-primary", style: "margin-top: 10px" %>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -1,9 +1,0 @@
-var microposts_view = "<%= escape_javascript(render partial: 'shared/feed_item', collection: @feed_items) %>"
-if(microposts_view != ""){
-	var page = parseInt($("#page").val())
-	$("#page").val(page + 1)
-	$("#microposts").append(microposts_view)
-}
-else{
-	$("#page").parent().hide()
-}

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  USERS_PER_VIEW = 7
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
   has_many :microposts,dependent: :destroy
@@ -20,8 +21,17 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  
   def feed
     Micropost.from_users_followed_by(self)
+  end
+
+  def self.limit_offset(view)
+    limit(USERS_PER_VIEW).offset(view * USERS_PER_VIEW)
+  end
+
+  def find_microposts(view)
+    microposts.limit_offset(view)    
   end
 
   def following?(other_user)

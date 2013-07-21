@@ -2,10 +2,10 @@ class StaticPagesController < ApplicationController
   def home
     if signed_in?
       @micropost = current_user.microposts.build 
-      @feed_items = handle_view_more_ajax(current_user.feed)
+      @feed_items = current_user.feed.limit_offset(params[:page].to_i)
       respond_to do |format|
         format.html
-        format.js
+        format.js {render "#{AJAX_VIEWS_FOLDER}/feed"}
       end
     end
   end

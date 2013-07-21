@@ -1,0 +1,9 @@
+var feed_view = "<%= escape_javascript(render partial: 'shared/feed_item', collection: @feed_items) %>"
+if(feed_view != ""){
+	var page = parseInt($("#page").val())
+	$("#page").val(page + 1)
+	$("#microposts").append(feed_view)
+}
+else{
+	$("#page").parent().hide()
+}

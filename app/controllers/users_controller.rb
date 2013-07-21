@@ -6,10 +6,10 @@ class UsersController < ApplicationController
 	  def show
     	@user = User.find_by_id(params[:id])
       if !@user.nil?
-        @microposts = handle_view_more_ajax(@user.microposts)
+        @microposts = @user.find_microposts(params[:page].to_i)
         respond_to do |format|
           format.html
-          format.js
+          format.js { render "#{AJAX_VIEWS_FOLDER}/microposts"}
         end
       else
         redirect_to(root_path)
@@ -49,10 +49,10 @@ class UsersController < ApplicationController
 
     def index
       # @users = User.paginate(page: params[:page],per_page: 10)
-      @users = handle_view_more_ajax(User)
+      @users = User.limit_offset(params[:page].to_i)
       respond_to do |format|
         format.html
-        format.js
+        format.js { render "#{AJAX_VIEWS_FOLDER}/users"}
       end
     end
 
@@ -65,15 +65,21 @@ class UsersController < ApplicationController
     def following
       @title = "Following"
       @user = User.find(params[:id])
-      @users = @user.followed_users.paginate(page: params[:page], per_page: ITEMS_PER_VIEW)
-      render 'show_follow'
+      @users = @user.followed_users.limit_offset(params[:page].to_i)
+      respond_to do |format|
+        format.html { render 'show_follow' }
+        format.js { render "#{AJAX_VIEWS_FOLDER}/users" }
+      end
     end
 
     def followers
       @title = "Followers"
       @user = User.find(params[:id])
-      @users = @user.followers.paginate(page: params[:page], per_page: ITEMS_PER_VIEW)
-      render 'show_follow'
+      @users = @user.followers.limit_offset(params[:page].to_i)
+      respond_to do |format|
+        format.html { render 'show_follow' }
+        format.js { render "#{AJAX_VIEWS_FOLDER}/users" }
+      end
     end
 
     private      

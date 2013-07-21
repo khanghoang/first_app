@@ -1,4 +1,5 @@
 class Micropost < ActiveRecord::Base
+  MICROPOSTS_PER_VIEW = 7
   attr_accessible :content
   belongs_to :user
   validates :user_id, presence: true
@@ -11,6 +12,10 @@ class Micropost < ActiveRecord::Base
                          WHERE follower_id = :user_id"
     where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
           user_id: user.id).includes(:user)
+  end
+
+  def self.limit_offset(view)
+    limit(MICROPOSTS_PER_VIEW).offset(view * MICROPOSTS_PER_VIEW)
   end
   
 end
