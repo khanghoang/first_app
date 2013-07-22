@@ -1,0 +1,6 @@
+$("#view_more").hide()
+var users_view = "<%= escape_javascript(render @users) %>"
+if(users_view == ""){
+	users_view = "No User Matches !"
+}
+$("#users").html(users_view)

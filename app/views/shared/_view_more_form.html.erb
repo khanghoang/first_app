@@ -1,0 +1,4 @@
+<%= form_tag("",remote: true, method: :get,id: "view_more") do %>
+    <%= hidden_field_tag :page , 1%>
+    <%= submit_tag "View more", class: "btn btn-large btn-primary", style: "margin-top: 10px" %>
+<% end %>

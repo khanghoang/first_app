@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     limit(USERS_PER_VIEW).offset(view * USERS_PER_VIEW)
   end
 
+  def self.simple_search(name)
+    where("name LIKE ?","%#{name}%")
+  end
+
   def find_microposts(view)
     microposts.limit_offset(view)    
   end
@@ -44,6 +48,10 @@ class User < ActiveRecord::Base
 
   def unfollow!(other_user)
     relationships.find_by_followed_id(other_user.id).destroy
+  end
+
+  def to_param
+    "#{id}-#{name.parameterize}"
   end
 
   private

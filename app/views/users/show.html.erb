@@ -21,10 +21,7 @@
       <ol class="microposts" id="microposts">
         <%= render @microposts %>
       </ol>
-      <%= form_tag(@user,remote: true, method: :get) do %>
-        <%= hidden_field_tag :page , 1%>
-        <%= submit_tag "View more", class: "btn btn-large btn-primary", style: "margin-top: 10px" %>
-      <% end %>      
+      <%= render 'shared/view_more_form' %>    
     <% end %>
   </div>
 </div>

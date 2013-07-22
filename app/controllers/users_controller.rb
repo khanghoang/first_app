@@ -82,6 +82,11 @@ class UsersController < ApplicationController
       end
     end
 
+    def search
+      @users = User.simple_search(params[:keyword])
+      render "#{AJAX_VIEWS_FOLDER}/search_results"
+    end
+
     private      
 
       def admin_user

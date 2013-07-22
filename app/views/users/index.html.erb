@@ -1,9 +1,10 @@
 <% provide(:title,"All users") %>
 <h1>All users</h1>
+<%= form_tag(search_users_path,remote: true, method: :get) do %>
+	<%= text_field_tag(:keyword, nil, placeholder: "Input keywords",style: "width: 400px;height:35px !important;margin-bottom: 0px", required: true, pattern: ".{2,}", title: "2 characters minimum") %>
+	<%= submit_tag "Search", class: "btn btn-large btn-primary" %>
+<% end %>
 <ul class="users" id="users">
 	<%= render @users %>
 </ul>
-<%= form_tag(users_path,remote: true, method: :get) do %>
-  <%= hidden_field_tag :page , 1%>
-  <%= submit_tag "View more", class: "btn btn-large btn-primary", style: "margin-top: 10px" %>
-<% end %>
+<%= render 'shared/view_more_form' %>

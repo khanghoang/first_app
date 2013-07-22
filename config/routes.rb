@@ -3,6 +3,8 @@ FirstApp::Application.routes.draw do
     member do
       get :following, :followers
     end
+
+    get :search, on: :collection
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # define constant
-  AJAX_VIEWS_FOLDER = "ajax_views"
+  AJAX_VIEWS_FOLDER = "ajax"
   protect_from_forgery  
   include SessionsHelper
   # Force signout to prevent CSRF attacks

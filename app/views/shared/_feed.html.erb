@@ -2,8 +2,5 @@
   <ol class="microposts" id="microposts">
     <%= render partial: 'shared/feed_item', collection: @feed_items %>
   </ol>
-  <%= form_tag(root_path,remote: true, method: :get) do %>
-    <%= hidden_field_tag :page , 1%>
-    <%= submit_tag "View more", class: "btn btn-large btn-primary", style: "margin-top: 10px" %>
-  <% end %>
+  <%= render 'shared/view_more_form' %>
 <% end %>
