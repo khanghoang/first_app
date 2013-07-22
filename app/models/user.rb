@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def self.simple_search(name)
-    where("name LIKE ?","%#{name}%")
+    where("name ILIKE ?","%#{name}%")
   end
 
   def find_microposts(view)
